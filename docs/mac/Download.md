@@ -18,11 +18,11 @@ If you're downloading for usage, you'll want to run the setup file.
 
 Make the file executable with:
 ```bash
-sudo chmod +x setup/lSetup.sh
+sudo chmod +x setup/mSetup.sh
 ```
 And run it with:
 ```bash
-sudo ./setup/lSetup.sh
+sudo ./setup/mSetup.sh
 ```
 
 After that, the "_cavg_" command will be installed and ready to use.
