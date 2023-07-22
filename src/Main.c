@@ -1,13 +1,19 @@
+/* Main.c */
+/* Main file */
+
+/* Includes */
 #include <stdint.h>
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+/* Structure for a hex code */
 struct HexCode 
 {
     uint32_t value : 24; /* Use bit-field to take up as little memory as possible */
 };
 
+/* Take the average hex code (returns struct HexCode) */
 struct HexCode HexAverage(const struct HexCode HexCodeOne, const struct HexCode HexCodeTwo) 
 {
     struct HexCode ResultHexCode;
@@ -15,6 +21,7 @@ struct HexCode HexAverage(const struct HexCode HexCodeOne, const struct HexCode 
     return ResultHexCode;
 }
 
+/* Take the average rgb (returns void, you pass in your own uint8_t[3] to be modified) */
 void RGBAverage(uint8_t RGBCodeAverage[3], const uint8_t RGBCodeOne[3], const uint8_t RGBCodeTwo[3]) 
 {
     for (int i = 0; i < 3; i++) 
@@ -23,6 +30,7 @@ void RGBAverage(uint8_t RGBCodeAverage[3], const uint8_t RGBCodeOne[3], const ui
     }
 }
 
+/* Take the average hsl (returns void, you pass in your own uint8_t[3] to be modified) */
 void HSLAverage(uint8_t HSLCodeAverage[3], const uint8_t HSLCodeOne[3], const uint8_t HSLCodeTwo[3]) 
 {
     /* Calculate average hue */
@@ -45,12 +53,18 @@ void HSLAverage(uint8_t HSLCodeAverage[3], const uint8_t HSLCodeOne[3], const ui
     HSLCodeAverage[2] = (HSLCodeOne[2] + HSLCodeTwo[2]) / 2;
 }
 
+/* Main */
 int main(int argc, const char* argv[]) 
 {
+    /* Check the user gave us the right amount of args –
+    if it's < 3 we'll have the program name, one switch,
+    and one value (we obviously need two to take an average) */
     if (argc >= 3) 
     {
+        /* Check switches */
         for (int i = 1; i < argc; i++) 
         {
+            /* Hex switches */
             if (strcmp(argv[i], "-hc") == 0 || strcmp(argv[i], "--hex") == 0) 
             {
                 if (i + 2 < argc) {
@@ -71,6 +85,7 @@ int main(int argc, const char* argv[])
                     fprintf(stderr, "Insufficient arguments for -hc or --hex option\n");
                 }
             }
+            /* RGB switch */
             else if (strcmp(argv[i], "-rgb") == 0)
             {
                 if (i + 6 < argc) 
@@ -105,6 +120,7 @@ int main(int argc, const char* argv[])
                     fprintf(stderr, "Insufficient arguments for -rgb option\n");
                 }
             }
+            /* HSL switch */
             else if (strcmp(argv[i], "-hsl") == 0)
             {
                 if (i + 6 < argc) 
